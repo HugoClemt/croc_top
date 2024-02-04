@@ -1,3 +1,5 @@
+import 'package:croc_top/page/profile_setup.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -28,16 +30,36 @@ class AuthResponse {
 }
 
 class AuthService {
-  static Future<AuthResponse> signUp(String email, String password) async {
+/* Fonction de création d'utilisateur seulement id, email et password */
+  static Future<AuthResponse> signUp(
+      String email, String password, BuildContext context) async {
     try {
       await SupabaseService.client!.auth
           .signUp(email: email, password: password);
+
+      final isAuthenticated = await AuthService.isAuthenticated();
+
+      if (isAuthenticated) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const ProfileSetupPage()),
+        );
+      }
+
       return AuthResponse(true);
     } catch (error) {
       print('Error signing up: $error');
       return AuthResponse(false, error: error.toString());
     }
   }
+
+/* Fonction pour mettre a jour les data d'un profile d'utilisateur lors que son inscription */
+
+static Future<void> updateUserProfile() async { 
+
+  final currentUser = SupabaseService.client!.auth.currentUser;
+  print(currentUser);
+}
 
   static Future<AuthResponse> signIn(String email, String password) async {
     try {

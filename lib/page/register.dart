@@ -1,5 +1,4 @@
 import 'package:croc_top/page/login.dart';
-import 'package:croc_top/page/profile_setup.dart';
 import 'package:croc_top/utils/supabase_service.dart';
 import 'package:flutter/material.dart';
 
@@ -19,12 +18,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     String password = _passwordController.text;
 
     try {
-      await AuthService.signUp(email, password);
-      print('Registration successful');
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const ProfileSetupPage()),
-      );
+      await AuthService.signUp(email, password, context);
+      //print('Registration successful');
     } catch (error) {
       print('Registration failed: $error');
     }
