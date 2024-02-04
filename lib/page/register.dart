@@ -19,7 +19,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     try {
       await AuthService.signUp(email, password, context);
-      //print('Registration successful');
     } catch (error) {
       print('Registration failed: $error');
     }

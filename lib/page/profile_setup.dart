@@ -1,3 +1,4 @@
+import 'package:croc_top/page/home.dart';
 import 'package:croc_top/utils/supabase_service.dart';
 import 'package:flutter/material.dart';
 
@@ -93,6 +94,11 @@ class _ProfileSetupPageState extends State<ProfileSetupPage> {
           })
           .eq('id', currentUser.id)
           .execute();
+      print("Profil mis à jour avec succès : $response");
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
     } catch (error) {
       print('Erreur de mise à jour du profil : $error');
     }

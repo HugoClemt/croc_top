@@ -18,8 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
     String password = _passwordController.text;
 
     try {
-      await AuthService.signIn(email, password);
-      print('Login successful');
+      await AuthService.signIn(email, password, context);
     } catch (error) {
       print('Login failed: $error');
     }

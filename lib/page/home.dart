@@ -25,17 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: () => _logoutUser(context),
-          ),
-        ],
-      ),
-      body: const Center(
+    return const Scaffold(
+      body: Center(
         child: Text('Home Screen'),
       ),
     );
