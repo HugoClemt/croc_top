@@ -184,8 +184,8 @@ class _ProfileSetupPageState extends State<ProfileSetupPage> {
                       return DropdownMenuItem<Country>(
                         value: country,
                         child: Text(
-                          country.name.length > 38
-                              ? '${country.name.substring(0, 38)}...'
+                          country.name.length > 30
+                              ? '${country.name.substring(0, 30)}...'
                               : country.name,
                         ),
                       );
