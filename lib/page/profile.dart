@@ -14,8 +14,78 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Selected Index: $_currentIndex'),
+      body: SizedBox(
+        height: 500,
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                color: Colors.grey[300],
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 175,
+                      child: Expanded(
+                        child: Container(
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircleAvatar(
+                                radius: 50,
+                                backgroundImage:
+                                    AssetImage('assets/profile_image.jpg'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 100),
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              child: Center(
+                                child: Row(
+                                  children: [
+                                    Text('HugoClemt'),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            SizedBox(
+                              child: Center(
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      child: Text('Abonnement : 15'),
+                                    ),
+                                    SizedBox(width: 15),
+                                    SizedBox(
+                                      child: Text('Abonnées : 150'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Text('Selected Index: $_currentIndex'),
+              ),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
