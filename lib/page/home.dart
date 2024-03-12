@@ -1,6 +1,10 @@
+import 'package:croc_top/auth/supabase_service.dart';
+import 'package:croc_top/models/profile.dart';
 import 'package:croc_top/page/profile.dart';
+import 'package:croc_top/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'login.dart';
 
@@ -13,6 +17,30 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+  User? _currentUser;
+  Map<String, dynamic>? _userProfile;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCurrentUser();
+  }
+
+  Future<void> _loadCurrentUser() async {
+    final currentUser = await AuthService.getCurrentUser();
+    if (currentUser != null) {
+      final userProfile = await DatabaseService.getUserProfile(currentUser.id);
+      if (userProfile != null) {
+        final profile = Profile.fromMap(userProfile);
+        setState(() {
+          _currentUser = currentUser;
+          _userProfile = userProfile;
+          print(_userProfile);
+        });
+      }
+    }
+  }
+
   Future<void> _logoutUser(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('isLoggedIn', false);
@@ -25,18 +53,21 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _navigateToProfile(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const ProfileScreen()),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('Selected Index: $_currentIndex'),
+        child: _currentUser != null
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Welcome, ${_currentUser!.email}, to CrocTop!'),
+                  Text('ID: ${_currentUser!.id}'),
+                  Text(
+                      'Nom d\'utilisateur : ${Profile.fromMap(_userProfile!).username}'),
+                ],
+              )
+            : const CircularProgressIndicator(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -64,7 +95,9 @@ class _HomeScreenState extends State<HomeScreen> {
             if (index == 3) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                MaterialPageRoute(
+                    builder: (context) =>
+                        ProfileScreen(userProfile: _userProfile)),
               );
               _currentIndex = index;
             } else {

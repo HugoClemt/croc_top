@@ -1,9 +1,9 @@
 import 'package:croc_top/page/home.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  final Map<String, dynamic>? userProfile;
+  const ProfileScreen({super.key, this.userProfile});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -12,14 +12,14 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   int _currentIndex = 3;
 
-  final List<String> imagePaths = [
-    'assets/icon-apero.svg',
-    'assets/icon-salad.svg',
-    'assets/icon-dishes.svg',
-    'assets/icon-desserts.svg',
-    'assets/icon-sauce.svg',
-    'assets/icon-cocktail.svg',
-  ];
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _ModifierProfil() async {
+    print('Button pressed');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,40 +27,50 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Column(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.25,
+            height: MediaQuery.of(context).size.height * 0.20,
             child: Container(
               color: Colors.grey[300],
               child: Row(
                 children: [
                   const SizedBox(
-                    width: 155,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: 50,
-                          backgroundImage: AssetImage('assets/profile.png'),
-                        ),
-                      ],
+                    width: 150,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 50.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            radius: 50,
+                            backgroundImage: AssetImage('assets/profile.png'),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.only(top: 100),
-                      child: const Column(
+                      padding: const EdgeInsets.only(top: 75),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
                             child: Center(
                               child: Row(
                                 children: [
-                                  Text('HugoClemt'),
+                                  Text(widget.userProfile!['username']),
+                                  const SizedBox(width: 10),
+                                  SizedBox(
+                                    child: IconButton(
+                                      icon: const Icon(Icons.edit_note),
+                                      onPressed: _ModifierProfil,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
                           ),
-                          SizedBox(height: 20),
-                          SizedBox(
+                          const SizedBox(height: 15),
+                          const SizedBox(
                             child: Center(
                               child: Row(
                                 children: [
@@ -85,7 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           Expanded(
             child: GridView.count(
-              crossAxisCount: 3,
+              crossAxisCount: 2,
               children: List.generate(
                 6,
                 (index) {
@@ -99,16 +109,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(0.0),
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
                       ),
-                      child: SvgPicture.asset(
-                        imagePaths[index],
-                        width: 50,
-                        height: 50,
-                        color: Colors.black,
-                      ),
+                      child: const Text('Button'),
                     ),
                   );
                 },

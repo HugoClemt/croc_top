@@ -3,6 +3,8 @@ import 'package:croc_top/page/profile_setup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:croc_top/models/profile.dart';
+
 
 class SupabaseService {
   static SupabaseClient? _supabaseClient;
@@ -97,5 +99,9 @@ class AuthService {
   static Future<String?> getUserId() async {
     final currentUser = SupabaseService.client!.auth.currentUser;
     return currentUser?.id;
+  }
+
+  static Future<User?> getCurrentUser() async {
+    return SupabaseService.client!.auth.currentUser;
   }
 }

@@ -1,5 +1,5 @@
 import 'package:croc_top/page/splash.dart';
-import 'package:croc_top/utils/supabase_service.dart';
+import 'package:croc_top/auth/supabase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 

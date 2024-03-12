@@ -1,5 +1,5 @@
 import 'package:croc_top/page/home.dart';
-import 'package:croc_top/utils/supabase_service.dart';
+import 'package:croc_top/auth/supabase_service.dart';
 import 'package:flutter/material.dart';
 
 class ProfileSetupPage extends StatefulWidget {
