@@ -1,12 +1,11 @@
 import 'package:croc_top/auth/supabase_service.dart';
 import 'package:croc_top/models/profile.dart';
+import 'package:croc_top/page/login.dart';
 import 'package:croc_top/page/profile.dart';
 import 'package:croc_top/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import 'login.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

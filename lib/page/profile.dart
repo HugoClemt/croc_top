@@ -1,4 +1,5 @@
 import 'package:croc_top/page/home.dart';
+import 'package:croc_top/page/setting.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -15,10 +16,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
+    //print(widget.userProfile);
+  }
+
+  void navigateToSettingPage(
+      BuildContext context, Map<String, dynamic> userProfile) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SettingPage(userProfile: userProfile),
+      ),
+    );
   }
 
   void _ModifierProfil() async {
-    print('Button pressed');
+    final userProfile = widget.userProfile!;
+    navigateToSettingPage(context, userProfile);
   }
 
   @override
